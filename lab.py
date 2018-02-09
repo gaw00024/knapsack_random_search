@@ -1,4 +1,4 @@
-from binary import initialise, mutation
+from binary import initialise, mutation, perturbation
 from knapsack import evaluate, read_kfile
 
 QUIET = True
@@ -22,12 +22,16 @@ class Lab:
         return initialise(self.number_of_items)
 
     @staticmethod
-    def flip_bit(index, solution):
+    def flip_1_bit(index, solution):
         solution[index] = 1 - solution[index]
 
     @staticmethod
     def flip_random(solution):
         return mutation(solution)
+
+    @staticmethod
+    def flip_2_bit(solution):
+        return perturbation(solution)
 
     def evaluate(self, solution, quiet=False):
         objective_value = evaluate(solution, self.items, self.capacity)

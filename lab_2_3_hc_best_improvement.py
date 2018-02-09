@@ -1,4 +1,4 @@
-from lab import Lab
+from lab import Lab, QUIET
 
 
 def select_initial_solution(lab):
@@ -7,18 +7,25 @@ def select_initial_solution(lab):
     return solution
 
 
-def find_improved_solution(lab, solution):
+def find_best_in_neighborhood(lab, solution):
     for index in range(lab.number_of_items):
         lab.flip_1_bit(index, solution)
-        lab.evaluate(solution)
+        lab.evaluate(solution, QUIET)
         lab.flip_1_bit(index, solution)
+
+
+def find_improved_solution(lab, solution):
+    for index in range(100):
+        solution = lab.flip_random(solution)
+        find_best_in_neighborhood(lab, solution)
 
 
 def run_lab(filename):
-    lab = Lab('1.3 Neighbours', filename)
+    lab = Lab('2.3 Best-improvement hill Climbing', filename)
     solution = select_initial_solution(lab)
     print lab.report()
-    find_improved_solution(lab, solution)
+    for index in range(7):
+        find_improved_solution(lab, solution)
     print lab.report()
 
 

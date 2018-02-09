@@ -1,4 +1,4 @@
-from lab import Lab
+from lab import Lab, QUIET
 
 
 def select_initial_solution(lab):
@@ -8,14 +8,14 @@ def select_initial_solution(lab):
 
 
 def find_improved_solution(lab, solution):
-    for index in range(lab.number_of_items):
-        lab.flip_1_bit(index, solution)
+    for index in range(100):
+        solution = lab.flip_2_bit(solution)
         lab.evaluate(solution)
-        lab.flip_1_bit(index, solution)
+    return solution
 
 
 def run_lab(filename):
-    lab = Lab('1.3 Neighbours', filename)
+    lab = Lab('2.4 Iterated Local Search', filename)
     solution = select_initial_solution(lab)
     print lab.report()
     find_improved_solution(lab, solution)

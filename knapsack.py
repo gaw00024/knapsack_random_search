@@ -20,10 +20,10 @@ def read_kfile(fname):
 # Returns: fitness = total value of the sack if valid solution or zero
 # if invalid, weigth of the sack
 
-def evaluate(sol, items, c):
+def evaluate(sol, items, capacity):
     l = len(sol)
     weight = sum([sol[i] * items[i][2] for i in range(l)])
-    if weight > c:
+    if weight > capacity:
         fitness = 0
     else:
         fitness = sum([sol[i] * items[i][1] for i in range(l)])

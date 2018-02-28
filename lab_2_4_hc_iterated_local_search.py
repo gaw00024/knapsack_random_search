@@ -1,5 +1,7 @@
 from lab import Lab, QUIET, COMMENT
 
+ITERATIONS = 1000
+
 
 def select_initial_solution(lab):
     solution = lab.random_solution()
@@ -8,7 +10,7 @@ def select_initial_solution(lab):
 
 
 def find_improved_solution(lab, solution):
-    for index in range(100):
+    for index in range(ITERATIONS):
         solution = lab.flip_2_bit(solution)
         lab.evaluate(solution, QUIET)
     return solution

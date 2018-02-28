@@ -9,6 +9,10 @@ from Population import Population
 #   population = 50
 GENERATIONS = 1000
 
+# Conclusions:
+#   The vastly outperforms the iterated local search both in number of
+#   iterations/generations required, and location of the optimum fitness.
+
 
 def run_lab(filename):
 

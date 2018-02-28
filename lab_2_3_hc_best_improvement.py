@@ -1,5 +1,7 @@
 from lab import Lab, QUIET, COMMENT
 
+ITERATIONS = 100
+
 
 def select_initial_solution(lab):
     solution = lab.random_solution()
@@ -15,7 +17,7 @@ def find_best_in_neighborhood(lab, solution):
 
 
 def find_improved_solution(lab, solution):
-    for index in range(100):
+    for index in range(ITERATIONS):
         solution = lab.flip_random(solution)
         find_best_in_neighborhood(lab, solution)
 

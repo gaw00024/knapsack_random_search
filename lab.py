@@ -2,11 +2,12 @@ from binary import initialise, mutation, perturbation
 from knapsack import evaluate, read_kfile
 
 QUIET = True
+COMMENT = "Optimal solutions 20=(726, 519), 200=(?, ?)"
 
 
 class Lab:
 
-    def __init__(self, name, filename):
+    def __init__(self, name, filename, comment):
         self.name = name
         number_of_items, capacity, items = read_kfile(filename)
         self.number_of_items = number_of_items
@@ -16,7 +17,8 @@ class Lab:
         self.best_solution = []
 
         print "-- Lab: " + name + " (" + filename + "), #items: " + \
-              str(number_of_items) + ", capacity: " + str(capacity)
+              str(number_of_items) + ", capacity: " + str(capacity) + \
+            " [" + comment + "]"
 
     def random_solution(self):
         return initialise(self.number_of_items)

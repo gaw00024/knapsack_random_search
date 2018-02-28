@@ -1,8 +1,8 @@
-from lab import Lab
+from lab import Lab, COMMENT
 
 
 def run_lab(filename):
-    lab = Lab('1.1 Random Solution', filename)
+    lab = Lab('1.1 Random Solution', filename, COMMENT)
     lab.evaluate(lab.random_solution())
     print lab.report()
 

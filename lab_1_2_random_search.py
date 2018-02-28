@@ -1,8 +1,8 @@
-from lab import Lab
+from lab import Lab, COMMENT
 
 
 def run_lab(filename):
-    lab = Lab('1.2 Random Search', filename)
+    lab = Lab('1.2 Random Search', filename, COMMENT)
     for index in range(100):
         solution = lab.random_solution()
         lab.evaluate(solution)

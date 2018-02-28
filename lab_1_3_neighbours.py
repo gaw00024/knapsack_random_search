@@ -1,4 +1,4 @@
-from lab import Lab
+from lab import Lab, COMMENT
 
 
 def select_initial_solution(lab):
@@ -15,7 +15,7 @@ def find_improved_solution(lab, solution):
 
 
 def run_lab(filename):
-    lab = Lab('1.3 Neighbours', filename)
+    lab = Lab('1.3 Neighbours', filename, COMMENT)
     solution = select_initial_solution(lab)
     print lab.report()
     find_improved_solution(lab, solution)

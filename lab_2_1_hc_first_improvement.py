@@ -1,4 +1,4 @@
-from lab import Lab
+from lab import Lab, QUIET, COMMENT
 
 
 def select_initial_solution(lab):
@@ -10,14 +10,15 @@ def select_initial_solution(lab):
 def find_improved_solution(lab, solution):
     for index in range(100):
         solution = lab.flip_random(solution)
-        lab.evaluate(solution)
+        lab.evaluate(solution, QUIET)
 
 
 def run_lab(filename):
     lab = Lab('2.1 First improvement (random mutation) Hill-climbing',
-              filename)
+              filename, COMMENT)
     solution = select_initial_solution(lab)
     print lab.report()
+    print ".."
     find_improved_solution(lab, solution)
     print lab.report()
 

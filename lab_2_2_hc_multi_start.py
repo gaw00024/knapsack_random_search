@@ -1,22 +1,23 @@
-from lab import Lab
+from lab import Lab, QUIET, COMMENT
 
 
 def select_initial_solution(lab):
     solution = lab.random_solution()
-    lab.evaluate(solution)
+    lab.evaluate(solution, QUIET)
     return solution
 
 
 def find_improved_solution(lab, solution):
     for index in range(100):
         solution = lab.flip_random(solution)
-        lab.evaluate(solution)
+        lab.evaluate(solution, QUIET)
 
 
 def run_lab(filename):
-    lab = Lab('2.2 Multi-start hill Climbing', filename)
+    lab = Lab('2.2 Multi-start hill Climbing', filename, COMMENT)
     solution = select_initial_solution(lab)
     print lab.report()
+    print ".."
     for index in range(7):
         find_improved_solution(lab, solution)
     print lab.report()

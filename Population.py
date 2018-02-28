@@ -1,6 +1,5 @@
-from random import randint
-
 import sys
+from random import randint
 
 from binary import initialise, xover_1pt, mutation
 from knapsack import read_kfile, evaluate
@@ -8,6 +7,7 @@ from knapsack import read_kfile, evaluate
 
 class Population:
     def __init__(self, size, filename):
+        self.filename = filename
         number_of_items, capacity, items = read_kfile(filename)
         self.number_of_items = number_of_items
         self.capacity = capacity
@@ -32,18 +32,19 @@ class Population:
     def tournament_selection(self):
         s1 = self.select_random_individual()
         s2 = self.select_random_individual()
-        if evaluate(s1, self.items, self.capacity)[0] > evaluate(s2, self.items, self.capacity)[0]:
+        if evaluate(s1, self.items, self.capacity)[0] > \
+                evaluate(s2, self.items, self.capacity)[0]:
             return s1
         else:
             return s2
 
     def crossover(self, solution1, solution2):
-        return xover_1pt(solution1, solution2)
+        return xover_1pt(solution1, solution2)[0]
 
     def mutate(self, solution):
         mutation(solution)
 
-    def replace_worst(self, r1, r2):
+    def replace_worst(self, replacement):
         worst_seen = sys.maxint
         worst_seen_index = -1
         for i in range(self.size):
@@ -51,20 +52,9 @@ class Population:
                 worst_seen = self.fitness[i][0]
                 worst_seen_index = i
 
-        # replace worst seen with r1
-        self.p[worst_seen_index] = r1
-        self.fitness[worst_seen_index] = self.evaluate_solution(r1)
-
-        worst_seen = sys.maxint
-        worst_seen_index = -1
-        for i in range(self.size):
-            if self.fitness[i][0] < worst_seen:
-                worst_seen = self.fitness[i][0]
-                worst_seen_index = i
-
-        # replace worst seen with r2
-        self.p[worst_seen_index] = r2
-        self.fitness[worst_seen_index] = self.evaluate_solution(r2)
+        # replace worst seen
+        self.p[worst_seen_index] = replacement
+        self.fitness[worst_seen_index] = self.evaluate_solution(replacement)
 
     def report(self):
         best_seen = -1
@@ -74,6 +64,9 @@ class Population:
                 best_seen = self.fitness[i][0]
                 best_seen_index = i
 
-        return "Best solution found: " + str(self.p[best_seen_index]) + \
+        return "-- Lab: 3 Steady-state genetic algorithm (" + self.filename + \
+               "), #items: " + str(self.number_of_items) + ", capacity: " + \
+               str(self.capacity) + "\nBest solution found: " + \
+               str(self.p[best_seen_index]) + \
                "\nObjective Value (value, weight): " + \
                str(self.fitness[best_seen_index])

@@ -1,4 +1,4 @@
-from lab import Lab, QUIET
+from lab import Lab, QUIET, COMMENT
 
 
 def select_initial_solution(lab):
@@ -21,9 +21,10 @@ def find_improved_solution(lab, solution):
 
 
 def run_lab(filename):
-    lab = Lab('2.3 Best-improvement hill Climbing', filename)
+    lab = Lab('2.3 Best-improvement hill Climbing', filename, COMMENT)
     solution = select_initial_solution(lab)
     print lab.report()
+    print ".."
     for index in range(7):
         find_improved_solution(lab, solution)
     print lab.report()

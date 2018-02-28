@@ -63,12 +63,13 @@ class Tests(unittest.TestCase):
         r2 = [1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1]  # o
         self.population.fitness[POP_SIZE / 2] = (-1, -1)
         self.population.fitness[POP_SIZE - 1] = (-1, -1)
-        self.population.replace_worst(r1, r2)
+        self.population.replace_worst(r1)
         self.assertListEqual(self.population.p[POP_SIZE / 2], r1)
+        self.population.replace_worst(r2)
         self.assertListEqual(self.population.p[POP_SIZE - 1], r2)
 
     def test_report(self):
-        # print(self.population.fitness)
+        print(self.population.fitness)
         self.population.evaluate()
-        # print(self.population.fitness)
-        # print self.population.report()
+        print(self.population.fitness)
+        print self.population.report()

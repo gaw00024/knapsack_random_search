@@ -1,6 +1,7 @@
 from lab import Lab, QUIET, COMMENT
 
-ITERATIONS = 100
+HC_ITERATIONS = 100
+STARTS = 7
 
 
 def select_initial_solution(lab):
@@ -10,18 +11,33 @@ def select_initial_solution(lab):
 
 
 def find_improved_solution(lab, solution):
-    for index in range(ITERATIONS):
+    for index in range(HC_ITERATIONS):
         solution = lab.flip_random(solution)
         lab.evaluate(solution, QUIET)
 
 
 def run_lab(filename):
     lab = Lab('2.2 Multi-start hill Climbing', filename, COMMENT)
-    solution = select_initial_solution(lab)
-    print lab.report()
-    print ".."
-    for index in range(7):
-        find_improved_solution(lab, solution)
+
+    best_local_optimum = (0, 0)
+    best_local_optimum_solution = []
+
+    print "LOCAL OPTIMA.."
+    for index in range(STARTS):
+        lab.reset()
+        starting_point = select_initial_solution(lab)
+
+        find_improved_solution(lab, starting_point)
+        local_optimum = lab.best_objective_value
+        print lab.report()
+
+        if local_optimum[0] > best_local_optimum[0]:
+            best_local_optimum = local_optimum
+            best_local_optimum_solution = lab.best_solution
+    print
+    print "BEST OF LOCAL OPTIMA:"
+    lab.best_solution = best_local_optimum_solution
+    lab.best_objective_value = best_local_optimum
     print lab.report()
 
 

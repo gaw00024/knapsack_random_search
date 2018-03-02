@@ -23,6 +23,10 @@ class Lab:
     def random_solution(self):
         return initialise(self.number_of_items)
 
+    def reset(self):
+        self.best_solution = []
+        self.best_objective_value = (0, 0)
+
     @staticmethod
     def flip_1_bit(index, solution):
         solution[index] = 1 - solution[index]
